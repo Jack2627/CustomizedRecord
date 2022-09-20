@@ -14,6 +14,11 @@
 		5CE3E28A28D8B26600EE5072 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CE3E28928D8B26600EE5072 /* Assets.xcassets */; };
 		5CE3E28D28D8B26600EE5072 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CE3E28B28D8B26600EE5072 /* LaunchScreen.storyboard */; };
 		5CE3E29028D8B26600EE5072 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE3E28F28D8B26600EE5072 /* main.m */; };
+		5CE3E2A228D8B2C500EE5072 /* AVFRecBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE3E29728D8B2C400EE5072 /* AVFRecBaseView.m */; };
+		5CE3E2A328D8B2C500EE5072 /* AVFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE3E29828D8B2C400EE5072 /* AVFViewController.m */; };
+		5CE3E2A428D8B2C500EE5072 /* JKSafeTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE3E29D28D8B2C400EE5072 /* JKSafeTimer.m */; };
+		5CE3E2A528D8B2C500EE5072 /* JKUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE3E29E28D8B2C400EE5072 /* JKUtilities.m */; };
+		5CE3E2A928D8B30E00EE5072 /* DemoRecordingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE3E2A828D8B30E00EE5072 /* DemoRecordingView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +34,18 @@
 		5CE3E28C28D8B26600EE5072 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5CE3E28E28D8B26600EE5072 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5CE3E28F28D8B26600EE5072 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5CE3E29728D8B2C400EE5072 /* AVFRecBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVFRecBaseView.m; sourceTree = "<group>"; };
+		5CE3E29828D8B2C400EE5072 /* AVFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVFViewController.m; sourceTree = "<group>"; };
+		5CE3E29928D8B2C400EE5072 /* AVFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVFViewController.h; sourceTree = "<group>"; };
+		5CE3E29A28D8B2C400EE5072 /* AVFoundationRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVFoundationRecording.h; sourceTree = "<group>"; };
+		5CE3E29B28D8B2C400EE5072 /* AVFRecBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVFRecBaseView.h; sourceTree = "<group>"; };
+		5CE3E29D28D8B2C400EE5072 /* JKSafeTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKSafeTimer.m; sourceTree = "<group>"; };
+		5CE3E29E28D8B2C400EE5072 /* JKUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKUtilities.m; sourceTree = "<group>"; };
+		5CE3E29F28D8B2C400EE5072 /* JKUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKUtilities.h; sourceTree = "<group>"; };
+		5CE3E2A028D8B2C400EE5072 /* JKSafeTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKSafeTimer.h; sourceTree = "<group>"; };
+		5CE3E2A128D8B2C400EE5072 /* AVFRecConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVFRecConst.h; sourceTree = "<group>"; };
+		5CE3E2A728D8B30E00EE5072 /* DemoRecordingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoRecordingView.h; sourceTree = "<group>"; };
+		5CE3E2A828D8B30E00EE5072 /* DemoRecordingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoRecordingView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +78,8 @@
 		5CE3E27C28D8B26500EE5072 /* CustomizedRecording */ = {
 			isa = PBXGroup;
 			children = (
+				5CE3E2A628D8B2F100EE5072 /* DemoView */,
+				5CE3E29628D8B27100EE5072 /* AVFoundationRecord */,
 				5CE3E27D28D8B26500EE5072 /* AppDelegate.h */,
 				5CE3E27E28D8B26500EE5072 /* AppDelegate.m */,
 				5CE3E28028D8B26500EE5072 /* SceneDelegate.h */,
@@ -74,6 +93,40 @@
 				5CE3E28F28D8B26600EE5072 /* main.m */,
 			);
 			path = CustomizedRecording;
+			sourceTree = "<group>";
+		};
+		5CE3E29628D8B27100EE5072 /* AVFoundationRecord */ = {
+			isa = PBXGroup;
+			children = (
+				5CE3E29C28D8B2C400EE5072 /* Support */,
+				5CE3E29A28D8B2C400EE5072 /* AVFoundationRecording.h */,
+				5CE3E2A128D8B2C400EE5072 /* AVFRecConst.h */,
+				5CE3E29B28D8B2C400EE5072 /* AVFRecBaseView.h */,
+				5CE3E29728D8B2C400EE5072 /* AVFRecBaseView.m */,
+				5CE3E29928D8B2C400EE5072 /* AVFViewController.h */,
+				5CE3E29828D8B2C400EE5072 /* AVFViewController.m */,
+			);
+			path = AVFoundationRecord;
+			sourceTree = "<group>";
+		};
+		5CE3E29C28D8B2C400EE5072 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				5CE3E29D28D8B2C400EE5072 /* JKSafeTimer.m */,
+				5CE3E29E28D8B2C400EE5072 /* JKUtilities.m */,
+				5CE3E29F28D8B2C400EE5072 /* JKUtilities.h */,
+				5CE3E2A028D8B2C400EE5072 /* JKSafeTimer.h */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		5CE3E2A628D8B2F100EE5072 /* DemoView */ = {
+			isa = PBXGroup;
+			children = (
+				5CE3E2A728D8B30E00EE5072 /* DemoRecordingView.h */,
+				5CE3E2A828D8B30E00EE5072 /* DemoRecordingView.m */,
+			);
+			path = DemoView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,9 +200,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CE3E28528D8B26500EE5072 /* ViewController.m in Sources */,
+				5CE3E2A528D8B2C500EE5072 /* JKUtilities.m in Sources */,
 				5CE3E27F28D8B26500EE5072 /* AppDelegate.m in Sources */,
+				5CE3E2A328D8B2C500EE5072 /* AVFViewController.m in Sources */,
 				5CE3E29028D8B26600EE5072 /* main.m in Sources */,
+				5CE3E2A428D8B2C500EE5072 /* JKSafeTimer.m in Sources */,
+				5CE3E2A228D8B2C500EE5072 /* AVFRecBaseView.m in Sources */,
 				5CE3E28228D8B26500EE5072 /* SceneDelegate.m in Sources */,
+				5CE3E2A928D8B30E00EE5072 /* DemoRecordingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,10 +348,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U746D2ER88;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CustomizedRecording/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "录像";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "录音";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -304,8 +368,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.demo.CustomizedRecording;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.10086.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = DevProfile_20220620;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -316,10 +382,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U746D2ER88;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CustomizedRecording/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "录像";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "录音";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -330,8 +402,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.demo.CustomizedRecording;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.10086.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = DevProfile_20220620;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
