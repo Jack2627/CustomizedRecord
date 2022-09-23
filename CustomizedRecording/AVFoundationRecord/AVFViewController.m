@@ -993,10 +993,17 @@ static NSString *const kAVVideoDefaultFloder    = @"pub";
     if (!_previewLayer) {
         _previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
         _previewLayer.frame = [UIScreen mainScreen].bounds;
-        _previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        _previewLayer.videoGravity = self.videoGravity;
         _previewLayer.connection.videoOrientation = AVCaptureVideoOrientationPortrait;
     }
     return _previewLayer;
+}
+
+- (AVLayerVideoGravity)videoGravity{
+    if (!_videoGravity) {
+        _videoGravity = AVLayerVideoGravityResizeAspectFill;
+    }
+    return _videoGravity;
 }
 
 @end
