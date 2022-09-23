@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C52D5CF28DDE7550090117D /* JKRecordAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C52D5CE28DDE7550090117D /* JKRecordAnimationView.m */; };
 		5CE3E27F28D8B26500EE5072 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE3E27E28D8B26500EE5072 /* AppDelegate.m */; };
 		5CE3E28228D8B26500EE5072 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE3E28128D8B26500EE5072 /* SceneDelegate.m */; };
 		5CE3E28528D8B26500EE5072 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE3E28428D8B26500EE5072 /* ViewController.m */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C52D5CD28DDE7550090117D /* JKRecordAnimationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JKRecordAnimationView.h; sourceTree = "<group>"; };
+		5C52D5CE28DDE7550090117D /* JKRecordAnimationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JKRecordAnimationView.m; sourceTree = "<group>"; };
 		5CE3E27A28D8B26500EE5072 /* CustomizedRecording.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomizedRecording.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CE3E27D28D8B26500EE5072 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5CE3E27E28D8B26500EE5072 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -125,6 +128,8 @@
 			children = (
 				5CE3E2A728D8B30E00EE5072 /* DemoRecordingView.h */,
 				5CE3E2A828D8B30E00EE5072 /* DemoRecordingView.m */,
+				5C52D5CD28DDE7550090117D /* JKRecordAnimationView.h */,
+				5C52D5CE28DDE7550090117D /* JKRecordAnimationView.m */,
 			);
 			path = DemoView;
 			sourceTree = "<group>";
@@ -204,6 +209,7 @@
 				5CE3E27F28D8B26500EE5072 /* AppDelegate.m in Sources */,
 				5CE3E2A328D8B2C500EE5072 /* AVFViewController.m in Sources */,
 				5CE3E29028D8B26600EE5072 /* main.m in Sources */,
+				5C52D5CF28DDE7550090117D /* JKRecordAnimationView.m in Sources */,
 				5CE3E2A428D8B2C500EE5072 /* JKSafeTimer.m in Sources */,
 				5CE3E2A228D8B2C500EE5072 /* AVFRecBaseView.m in Sources */,
 				5CE3E28228D8B26500EE5072 /* SceneDelegate.m in Sources */,
@@ -361,8 +367,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -395,8 +401,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
