@@ -9,6 +9,12 @@
 #import "AVFoundationRecord/AVFoundationRecording.h"
 #import "DemoRecordingView.h"
 
+typedef NS_ENUM(NSUInteger, ShowRecordMethod) {
+    ShowRecordMethodPush = 0,
+    ShowRecordMethodHalfPresent,
+    ShowRecordMethodFullPresent,
+};
+
 @interface ViewController ()<AVFRecordingDataSource, AVFRecordingDelegate>
 @property(nonatomic, strong)DemoRecordingView *recView;
 @end
@@ -24,12 +30,49 @@
 }
 
 #pragma mark - Private
-- (IBAction)actionShowRec:(id)sender {
+- (void)showRecordingViewControllerWithMethod:(ShowRecordMethod)method{
     AVFViewController *vc = [[AVFViewController alloc] init];
     vc.delegate = self;
     vc.dataSource = self;
-    [vc jk_setCameraPos:(AVCaptureDevicePositionBack)];
-    [self presentViewController:vc animated:YES completion:NULL];
+
+    switch (method) {
+        case ShowRecordMethodPush:
+        {
+            //自定义后退按钮
+            UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"<-" style:(UIBarButtonItemStylePlain) target:nil action:nil];
+            vc.backItem = item;
+            
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case ShowRecordMethodHalfPresent:
+        {
+            [self presentViewController:vc animated:YES completion:NULL];
+        }
+            break;
+        case ShowRecordMethodFullPresent:
+        {
+            vc.modalPresentationStyle = UIModalPresentationFullScreen;
+            [self presentViewController:vc animated:YES completion:NULL];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (IBAction)actionPush:(id)sender {
+    [self.recView rec_hideDismissBtn];
+    [self showRecordingViewControllerWithMethod:(ShowRecordMethodPush)];
+}
+
+- (IBAction)actionHalf:(id)sender {
+    [self showRecordingViewControllerWithMethod:(ShowRecordMethodHalfPresent)];
+}
+
+- (IBAction)actionFull:(id)sender {
+    [self showRecordingViewControllerWithMethod:(ShowRecordMethodFullPresent)];
 }
 
 - (void)updateRecordingTime{

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qRL-gE-Am6">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
@@ -16,26 +16,70 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rov-PX-2Wp">
-                                <rect key="frame" x="168.66666666666666" y="404.66666666666669" width="53" height="35"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Rec"/>
-                                <connections>
-                                    <action selector="actionShowRec:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vVO-mP-Wif"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q5a-JH-BVy">
+                                <rect key="frame" x="0.0" y="750" width="390" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAp-cV-O0f">
+                                        <rect key="frame" x="0.0" y="0.0" width="130" height="60"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Push"/>
+                                        <connections>
+                                            <action selector="actionPush:" destination="BYZ-38-t0r" eventType="touchUpInside" id="l8c-36-fkd"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="msq-5E-UVR">
+                                        <rect key="frame" x="130" y="0.0" width="130" height="60"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Half_Present"/>
+                                        <connections>
+                                            <action selector="actionHalf:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BgX-Yt-r9H"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iNo-RB-hD1">
+                                        <rect key="frame" x="260" y="0.0" width="130" height="60"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Full_Present"/>
+                                        <connections>
+                                            <action selector="actionFull:" destination="BYZ-38-t0r" eventType="touchUpInside" id="U1U-Qe-csA"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="wRV-vM-lOw"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Rov-PX-2Wp" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Xbt-Me-CfT"/>
-                            <constraint firstItem="Rov-PX-2Wp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="npH-gh-fwg"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="q5a-JH-BVy" secondAttribute="trailing" id="0lX-C2-U3w"/>
+                            <constraint firstItem="q5a-JH-BVy" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="VAj-mG-YMd"/>
+                            <constraint firstItem="q5a-JH-BVy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ilO-1b-PZd"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Nm8-TZ-c7s"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="105" y="26"/>
+            <point key="canvasLocation" x="1033.8461538461538" y="25.592417061611375"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cfU-Dv-8oA">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qRL-gE-Am6" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="94g-c9-Ex4">
+                        <rect key="frame" x="0.0" y="47" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="hqf-bs-LNo"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PRG-Gw-udq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="104.61538461538461" y="25.592417061611375"/>
         </scene>
     </scenes>
     <resources>
