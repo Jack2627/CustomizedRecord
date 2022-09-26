@@ -41,7 +41,8 @@ typedef NS_ENUM(NSUInteger, ShowRecordMethod) {
             //自定义后退按钮
             UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"<-" style:(UIBarButtonItemStylePlain) target:nil action:nil];
             vc.backItem = item;
-            
+            //fix:push后导航栏设置透明向下偏移一个导航栏高度
+            vc.extendedLayoutIncludesOpaqueBars = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
@@ -144,6 +145,22 @@ typedef NS_ENUM(NSUInteger, ShowRecordMethod) {
     _recordingTime = -1;
     [self updateRecordingTime];
     self.recView = nil;
+}
+
+- (void)avf_viewControllerWillAppear:(AVFViewController *)viewController{
+    //进入设置导航栏颜色透明
+    if (viewController.navigationController) {
+        viewController.navigationController.navigationBar.barTintColor = [UIColor clearColor];
+        viewController.navigationController.navigationBar.translucent = NO;
+    }
+}
+
+- (void)avf_viewControllerWillDisappear:(AVFViewController *)viewController{
+    //退出还原导航栏
+    if (viewController.navigationController) {
+        self.navigationController.navigationBar.barTintColor = nil;
+        self.navigationController.navigationBar.translucent = YES;
+    }
 }
 
 #pragma mark - Lazy
