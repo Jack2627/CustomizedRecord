@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, strong)UIBarButtonItem *backItem;
 @property(nonatomic, copy)AVLayerVideoGravity videoGravity;
-@property(nonatomic, copy)void (^commitVideoCallback)(NSDictionary *dict);
 /**
  根据AVCaptureDevicePosition获取可用的DeviceFormat
  */

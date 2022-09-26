@@ -101,6 +101,20 @@ static NSString *const kAVVideoDefaultFloder    = @"pub";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    BOOL isPushed = self.navigationController && !self.presentingViewController;
+    if (isPushed) {
+        //push进来
+        if (self.backItem) {
+            self.backItem.target = self;
+            self.backItem.action = @selector(actionDismiss);
+        } else {
+            self.backItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:(UIBarButtonSystemItemCancel) target:self action:@selector(actionDismiss)];
+        }
+        self.navigationItem.leftBarButtonItems = @[self.backItem];
+        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    }
+    
     self.view.backgroundColor = [UIColor blackColor];
     AVAuthorizationStatus videoStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     AVAuthorizationStatus audioStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
@@ -139,23 +153,14 @@ static NSString *const kAVVideoDefaultFloder    = @"pub";
     
     
     [self setUpVideoAudio];
-    BOOL isPushed = self.navigationController && !self.presentingViewController;
-    if (isPushed) {
-        //push进来
-        if (self.backItem) {
-            self.backItem.target = self;
-            self.backItem.action = @selector(actionDismiss);
-        } else {
-            self.backItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:(UIBarButtonSystemItemCancel) target:self action:@selector(actionDismiss)];
-        }
-        self.navigationItem.leftBarButtonItems = @[self.backItem];
-        self.navigationController.interactivePopGestureRecognizer.delegate = self;
-    }
     // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(avf_viewControllerWillAppear:)]) {
+        [self.delegate avf_viewControllerWillAppear:self];
+    }
     if (self.session) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self.session startRunning];
@@ -180,6 +185,9 @@ static NSString *const kAVVideoDefaultFloder    = @"pub";
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(avf_viewControllerWillDisappear:)]) {
+        [self.delegate avf_viewControllerWillDisappear:self];
+    }
     [self.session stopRunning];
 }
 
@@ -976,13 +984,6 @@ static NSString *const kAVVideoDefaultFloder    = @"pub";
             [param setObject:@(size.height) forKey:kAVOutParamKeyWidth];
             [param setObject:@(size.width) forKey:kAVOutParamKeyHeight];
         }
-    }
-    
-    if (self.commitVideoCallback) {
-        self.commitVideoCallback(param);
-    }
-    if (self.delegate && [self.delegate respondsToSelector:@selector(avf_viewController:commit:)]) {
-        [self.delegate avf_viewController:self commit:param];
     }
     
     [self actionDismiss];

@@ -57,6 +57,9 @@ typedef NS_ENUM(NSUInteger, AVRecordSaveType) {
 - (void)avf_viewController:(AVFViewController *)viewController willStopRecordingWithReason:(AVFRecordingStopReason)reason;
 - (void)avf_viewController:(AVFViewController *)viewController didStopRecordingWithResult:(BOOL)success;
 - (void)avf_viewControllerWillDismiss:(AVFViewController *)viewController;
+//对应系统方法
+- (void)avf_viewControllerWillAppear:(AVFViewController *)viewController;
+- (void)avf_viewControllerWillDisappear:(AVFViewController *)viewController;
 @end
 
 #endif /* AVFRecConst_h */
