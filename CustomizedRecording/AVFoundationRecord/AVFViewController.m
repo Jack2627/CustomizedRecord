@@ -581,14 +581,29 @@ static NSString *const kAVVideoDefaultFloder    = @"pub";
         if (self.avWriter.status == AVAssetWriterStatusWriting) {
             __weak typeof(self) weakSelf = self;
             [self.avWriter finishWritingWithCompletionHandler:^{
-                weakSelf.canWrite = NO;
-                weakSelf.avWriter = nil;
-                weakSelf.avAudioInput = nil;
-                weakSelf.avVideoInput = nil;
-                
-                if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(avf_viewController:didStopRecordingWithResult:)]) {
-                    [weakSelf.delegate avf_viewController:weakSelf didStopRecordingWithResult:YES];
+                //fix: iOS 16
+                if ([NSThread isMainThread]) {
+                    weakSelf.canWrite = NO;
+                    weakSelf.avWriter = nil;
+                    weakSelf.avAudioInput = nil;
+                    weakSelf.avVideoInput = nil;
+                    
+                    if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(avf_viewController:didStopRecordingWithResult:)]) {
+                        [weakSelf.delegate avf_viewController:weakSelf didStopRecordingWithResult:YES];
+                    }
+                } else {
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        weakSelf.canWrite = NO;
+                        weakSelf.avWriter = nil;
+                        weakSelf.avAudioInput = nil;
+                        weakSelf.avVideoInput = nil;
+                        
+                        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(avf_viewController:didStopRecordingWithResult:)]) {
+                            [weakSelf.delegate avf_viewController:weakSelf didStopRecordingWithResult:YES];
+                        }
+                    });
                 }
+                
             }];
         }
     }else if (_recordType == AVRecordSaveTypeMov) {
