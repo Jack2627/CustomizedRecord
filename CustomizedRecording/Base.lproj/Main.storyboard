@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qRL-gE-Am6">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -103,6 +104,9 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="remove"/>
+                                <connections>
+                                    <action selector="actionRemoveByFlag:" destination="BYZ-38-t0r" eventType="touchUpInside" id="n6Z-S5-s8K"/>
+                                </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fEk-K2-v47">
                                 <rect key="frame" x="16" y="273" width="320" height="32"/>
@@ -114,6 +118,18 @@
                                     <segment title=".mp4"/>
                                 </segments>
                             </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ID6-Rz-k0e">
+                                <rect key="frame" x="120" y="354" width="150" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="PNV-Ge-TZG"/>
+                                    <constraint firstAttribute="width" constant="150" id="dVA-uX-VDI"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Print all support"/>
+                                <connections>
+                                    <action selector="actionPrintAllSupport:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jdt-U4-sK4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -124,6 +140,7 @@
                             <constraint firstItem="TAH-K5-OfS" firstAttribute="trailing" secondItem="fEk-K2-v47" secondAttribute="trailing" id="9Z2-d6-3dr"/>
                             <constraint firstItem="8pZ-JD-9oP" firstAttribute="leading" secondItem="HRQ-UM-hHC" secondAttribute="trailing" constant="20" id="IGN-LO-jA8"/>
                             <constraint firstItem="kmf-B1-La5" firstAttribute="centerY" secondItem="WTg-9O-qpC" secondAttribute="centerY" id="P13-Pj-seA"/>
+                            <constraint firstItem="ID6-Rz-k0e" firstAttribute="top" secondItem="fEk-K2-v47" secondAttribute="bottom" constant="50" id="T79-FV-xJ6"/>
                             <constraint firstItem="q5a-JH-BVy" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="VAj-mG-YMd"/>
                             <constraint firstItem="463-xg-NEv" firstAttribute="top" secondItem="HRQ-UM-hHC" secondAttribute="bottom" constant="20" id="Va7-Ky-TWR"/>
                             <constraint firstItem="WTg-9O-qpC" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="fu8-VS-UXA"/>
@@ -132,6 +149,7 @@
                             <constraint firstItem="q5a-JH-BVy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ilO-1b-PZd"/>
                             <constraint firstItem="463-xg-NEv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="jYF-WX-9ck"/>
                             <constraint firstItem="TAH-K5-OfS" firstAttribute="centerY" secondItem="463-xg-NEv" secondAttribute="centerY" id="k8b-Dc-F47"/>
+                            <constraint firstItem="ID6-Rz-k0e" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="m34-hU-jQt"/>
                             <constraint firstItem="HRQ-UM-hHC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="rTL-Nv-ld7"/>
                             <constraint firstItem="kmf-B1-La5" firstAttribute="leading" secondItem="WTg-9O-qpC" secondAttribute="trailing" constant="30" id="vRJ-Sf-hEN"/>
                             <constraint firstItem="fEk-K2-v47" firstAttribute="top" secondItem="463-xg-NEv" secondAttribute="bottom" constant="20" id="z1E-5g-hxF"/>
@@ -148,8 +166,21 @@
                                 <segment title="Back"/>
                             </segments>
                         </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" title="Remove_All" id="QsH-aT-8NU"/>
+                        <barButtonItem key="rightBarButtonItem" title="Remove_All" id="QsH-aT-8NU">
+                            <connections>
+                                <action selector="actionRemoveAll:" destination="BYZ-38-t0r" id="doE-VN-rAU"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="inputFPS" destination="8pZ-JD-9oP" id="gcV-HU-HoK"/>
+                        <outlet property="inputFlag" destination="463-xg-NEv" id="GHJ-i3-2a0"/>
+                        <outlet property="inputMax" destination="kmf-B1-La5" id="suY-1h-hr0"/>
+                        <outlet property="inputMin" destination="WTg-9O-qpC" id="75u-RE-9Ta"/>
+                        <outlet property="inputRecSize" destination="HRQ-UM-hHC" id="9AL-xO-RKW"/>
+                        <outlet property="segPos" destination="les-io-sVV" id="aY9-zl-loE"/>
+                        <outlet property="segRecType" destination="fEk-K2-v47" id="oee-PA-FEV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

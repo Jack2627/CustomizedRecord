@@ -17,6 +17,14 @@ typedef NS_ENUM(NSUInteger, ShowRecordMethod) {
 
 @interface ViewController ()<AVFRecordingDataSource, AVFRecordingDelegate>
 @property(nonatomic, strong)DemoRecordingView *recView;
+@property (weak, nonatomic) IBOutlet UITextField *inputMin;
+@property (weak, nonatomic) IBOutlet UITextField *inputMax;
+@property (weak, nonatomic) IBOutlet UITextField *inputRecSize;
+@property (weak, nonatomic) IBOutlet UITextField *inputFPS;
+@property (weak, nonatomic) IBOutlet UITextField *inputFlag;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segPos;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segRecType;
+
 @end
 
 @implementation ViewController{
@@ -29,12 +37,55 @@ typedef NS_ENUM(NSUInteger, ShowRecordMethod) {
     // Do any additional setup after loading the view.
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
+
 #pragma mark - Private
 - (void)showRecordingViewControllerWithMethod:(ShowRecordMethod)method{
     AVFViewController *vc = [[AVFViewController alloc] init];
     vc.delegate = self;
     vc.dataSource = self;
 
+    NSInteger min = [self.inputMin.text integerValue];
+    if (min > 0) {
+        [vc jk_setMinRecordSecond:min];
+    }
+    
+    NSInteger max = [self.inputMax.text integerValue];
+    if (max > min) {
+        [vc jk_setMaxRecordSecond:max];
+    }
+    
+    NSInteger fps = [self.inputFPS.text integerValue];
+    if (fps > 0) {
+        [vc jk_setFrameRate:fps];
+    }
+    
+    NSArray *size = [self.inputRecSize.text componentsSeparatedByString:@"#"];
+    if (size.count == 2) {
+        CGFloat width = [size.firstObject floatValue];
+        CGFloat height = [size.lastObject floatValue];
+        if (width > 0 && height > 0) {
+            [vc jk_setSaveVideoSize:CGSizeMake(width, height)];
+        }
+    }
+    
+    NSString *flag = self.inputFlag.text;
+    vc.flag = flag;
+    
+    AVCaptureDevicePosition pos = AVCaptureDevicePositionFront;
+    if (self.segPos.selectedSegmentIndex == 1) {
+        pos = AVCaptureDevicePositionBack;
+    }
+    [vc jk_setCameraPos:pos];
+    
+    AVRecordSaveType type = AVRecordSaveTypeMov;
+    if (self.segRecType.selectedSegmentIndex == 1) {
+        type = AVRecordSaveTypeMp4;
+    }
+    [vc jk_setRecordType:type];
+    
     switch (method) {
         case ShowRecordMethodPush:
         {
@@ -74,6 +125,24 @@ typedef NS_ENUM(NSUInteger, ShowRecordMethod) {
 
 - (IBAction)actionFull:(id)sender {
     [self showRecordingViewControllerWithMethod:(ShowRecordMethodFullPresent)];
+}
+
+- (IBAction)actionRemoveByFlag:(id)sender {
+    
+}
+
+- (IBAction)actionRemoveAll:(id)sender {
+    
+}
+
+- (IBAction)actionPrintAllSupport:(id)sender {
+    AVFViewController *vc = [[AVFViewController alloc] init];
+    AVCaptureDevicePosition pos = AVCaptureDevicePositionFront;
+    if (self.segPos.selectedSegmentIndex == 1) {
+        pos = AVCaptureDevicePositionBack;
+    }
+    NSArray *array = [vc jk_availableSizeAndFrameRateWithPos:pos];
+    NSLog(@"all support: %@",array);
 }
 
 - (void)updateRecordingTime{
@@ -148,7 +217,10 @@ typedef NS_ENUM(NSUInteger, ShowRecordMethod) {
 }
 
 - (void)avf_viewControllerWillAppear:(AVFViewController *)viewController{
-    //进入设置导航栏颜色透明
+    /*
+     for demo userinterface
+     进入设置导航栏颜色透明
+     */
     if (viewController.navigationController) {
         viewController.navigationController.navigationBar.barTintColor = [UIColor clearColor];
         viewController.navigationController.navigationBar.translucent = NO;
@@ -156,7 +228,10 @@ typedef NS_ENUM(NSUInteger, ShowRecordMethod) {
 }
 
 - (void)avf_viewControllerWillDisappear:(AVFViewController *)viewController{
-    //退出还原导航栏
+    /*
+     for demo userinterface
+     退出还原导航栏
+     */
     if (viewController.navigationController) {
         self.navigationController.navigationBar.barTintColor = nil;
         self.navigationController.navigationBar.translucent = YES;
