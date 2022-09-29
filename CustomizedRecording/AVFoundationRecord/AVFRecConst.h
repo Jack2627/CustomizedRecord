@@ -49,8 +49,6 @@ typedef NS_ENUM(NSUInteger, AVRecordSaveType) {
 
 @class AVFViewController;
 @protocol AVFRecordingDelegate <NSObject>
-@required
-- (void)avf_viewController:(AVFViewController *)viewController commit:(NSDictionary *)dict;
 @optional
 - (void)avf_viewControllerWillStartRecording:(AVFViewController *)viewController;
 - (void)avf_viewController:(AVFViewController *)viewController updateRecordingTime:(NSInteger)recordingTime;

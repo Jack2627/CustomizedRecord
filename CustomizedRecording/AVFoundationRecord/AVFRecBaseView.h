@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol AVFRecViewDelegate <NSObject>
-@required
+@optional
 - (void)avf_recViewTapRecordingButton;
 - (void)avf_recViewDismissAction;
 - (void)avf_recViewSwitchCamera;
