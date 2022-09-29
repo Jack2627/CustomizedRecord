@@ -164,6 +164,7 @@ typedef NS_ENUM(NSUInteger, ShowRecordMethod) {
 
 //MARK: - AVFRecordingDataSource
 - (AVFRecBaseView *)avfoundationView{
+    NSLog(@"jkdebug avview:%@",self.recView);
     return self.recView;
 }
 
@@ -173,6 +174,7 @@ typedef NS_ENUM(NSUInteger, ShowRecordMethod) {
 }
 
 - (void)avf_viewControllerWillStartRecording:(AVFViewController *)viewController{
+    NSLog(@"jkdebug will start");
     _recordingTime = 0;
     [self updateRecordingTime];
     NSLog(@"%@",NSStringFromSelector(_cmd));
