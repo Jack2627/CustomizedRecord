@@ -62,7 +62,6 @@ static NSString *const kAVVideoDefaultFloder    = @"pub";
     self = [super init];
     if (self) {
         _safeTimer = [[JKSafeTimer alloc] init];
-        _safeTimer.delegate = self;
         
         _pos = AVCaptureDevicePositionFront;
         _maxTime = 0;
@@ -193,6 +192,7 @@ static NSString *const kAVVideoDefaultFloder    = @"pub";
 
 - (void)dealloc{
     NSLog(@"jkdebug recordingVC%@ dealloc",self);
+    [_safeTimer jk_safeTimerRelease];
     if (!_sentDismissDelegate) {
         NSLog(@"jkdebug dismiss from dealloc");
         if (self.delegate && [self.delegate respondsToSelector:@selector(avf_viewControllerWillDismiss:)]) {
@@ -200,7 +200,6 @@ static NSString *const kAVVideoDefaultFloder    = @"pub";
         }
     }
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [_safeTimer jk_safeTimerRelease];
     if (self.session) {
         [self.session stopRunning];
     }
@@ -551,7 +550,7 @@ static NSString *const kAVVideoDefaultFloder    = @"pub";
         }
         self.recording = YES;
         //开始计时
-        [_safeTimer jk_safeTimerFireWithPerCallbackTime:1];
+        [_safeTimer jk_safeTimerFireWithPerCallbackTime:1 withDelegate:self];
         
         if (_recordType == AVRecordSaveTypeMp4) {
             NSString *videoPath = [NSString stringWithFormat:@"%@/%@%@",floderPath,fileName,kAVVideoTypeMP4];

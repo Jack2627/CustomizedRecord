@@ -15,8 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface JKSafeTimer : NSObject
-@property(nonatomic, weak)id<JKSafeTimerDelegate>delegate;
-- (void)jk_safeTimerFireWithPerCallbackTime:(NSInteger)sec;
+- (void)jk_safeTimerFireWithPerCallbackTime:(NSInteger)sec withDelegate:(id<JKSafeTimerDelegate>)delegate;
 - (void)jk_safeTimerRelease;
 @end
 

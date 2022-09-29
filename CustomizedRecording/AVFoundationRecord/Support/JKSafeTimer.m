@@ -6,6 +6,9 @@
 //
 
 #import "JKSafeTimer.h"
+@interface JKSafeTimer()
+@property(nonatomic, weak)id<JKSafeTimerDelegate>delegate;
+@end
 
 @implementation JKSafeTimer{
     NSTimer *_timer;
@@ -23,14 +26,15 @@
 }
 
 #pragma mark - Public
-- (void)jk_safeTimerFireWithPerCallbackTime:(NSInteger)sec{
-    if (sec <= 0) {
+- (void)jk_safeTimerFireWithPerCallbackTime:(NSInteger)sec withDelegate:(nonnull id<JKSafeTimerDelegate>)delegate{
+    if (sec <= 0 || !delegate) {
         return;
     }
     if (_timer) {
         [_timer invalidate];
         _timer = nil;
     }
+    self.delegate = delegate;
     _timer = [NSTimer scheduledTimerWithTimeInterval:sec target:self selector:@selector(actionTic) userInfo:nil repeats:YES];
 }
 
@@ -39,6 +43,7 @@
         [_timer invalidate];
         _timer = nil;
     }
+    self.delegate = nil;
 }
 
 @end

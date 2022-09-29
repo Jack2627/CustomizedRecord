@@ -115,10 +115,10 @@
 		5CE3E29C28D8B2C400EE5072 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				5CE3E2A028D8B2C400EE5072 /* JKSafeTimer.h */,
 				5CE3E29D28D8B2C400EE5072 /* JKSafeTimer.m */,
 				5CE3E29E28D8B2C400EE5072 /* JKUtilities.m */,
 				5CE3E29F28D8B2C400EE5072 /* JKUtilities.h */,
-				5CE3E2A028D8B2C400EE5072 /* JKSafeTimer.h */,
 			);
 			path = Support;
 			sourceTree = "<group>";
