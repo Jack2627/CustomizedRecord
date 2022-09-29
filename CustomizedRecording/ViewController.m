@@ -42,6 +42,13 @@ typedef NS_ENUM(NSUInteger, ShowRecordMethod) {
 }
 
 #pragma mark - Private
+- (void)showAlertWithMsg:(NSString *)msg{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Tip" message:msg preferredStyle:(UIAlertControllerStyleAlert)];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"Okay" style:(UIAlertActionStyleDefault) handler:NULL];
+    [alert addAction:action];
+    [self presentViewController:alert animated:YES completion:NULL];
+}
+
 - (void)showRecordingViewControllerWithMethod:(ShowRecordMethod)method{
     AVFViewController *vc = [[AVFViewController alloc] init];
     vc.delegate = self;
@@ -72,7 +79,9 @@ typedef NS_ENUM(NSUInteger, ShowRecordMethod) {
     }
     
     NSString *flag = self.inputFlag.text;
-    vc.flag = flag;
+    if (flag && flag.length > 0) {
+        vc.flag = flag;
+    }
     
     AVCaptureDevicePosition pos = AVCaptureDevicePositionFront;
     if (self.segPos.selectedSegmentIndex == 1) {
@@ -128,11 +137,15 @@ typedef NS_ENUM(NSUInteger, ShowRecordMethod) {
 }
 
 - (IBAction)actionRemoveByFlag:(id)sender {
-    
+    NSString *flag = self.inputFlag.text;
+    NSAssert(flag.length > 0, @"需要输入flag, You need to inpur flag");
+    [AVFViewController jk_removeWithFlag:flag];
+    [self showAlertWithMsg:[NSString stringWithFormat:@"%@ has removed",flag]];
 }
 
 - (IBAction)actionRemoveAll:(id)sender {
-    
+    [AVFViewController jk_removeAll];
+    [self showAlertWithMsg:@"All saved video has been removed"];
 }
 
 - (IBAction)actionPrintAllSupport:(id)sender {
