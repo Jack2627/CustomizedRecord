@@ -107,9 +107,9 @@ static NSString *const kAVVideoDefaultFloder    = @"pub";
         //push进来
         if (self.backItem) {
             self.backItem.target = self;
-            self.backItem.action = @selector(actionDismiss);
+            self.backItem.action = @selector(avf_recViewDismissAction);
         } else {
-            self.backItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:(UIBarButtonSystemItemCancel) target:self action:@selector(actionDismiss)];
+            self.backItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:(UIBarButtonSystemItemCancel) target:self action:@selector(avf_recViewDismissAction)];
         }
         self.navigationItem.leftBarButtonItems = @[self.backItem];
         self.navigationController.interactivePopGestureRecognizer.delegate = self;
@@ -192,7 +192,7 @@ static NSString *const kAVVideoDefaultFloder    = @"pub";
 }
 
 - (void)dealloc{
-    NSLog(@"jkdebug vc dealloc");
+    NSLog(@"jkdebug recordingVC%@ dealloc",self);
     if (!_sentDismissDelegate) {
         NSLog(@"jkdebug dismiss from dealloc");
         if (self.delegate && [self.delegate respondsToSelector:@selector(avf_viewControllerWillDismiss:)]) {
@@ -727,7 +727,9 @@ static NSString *const kAVVideoDefaultFloder    = @"pub";
     UIAlertAction *setting = [UIAlertAction actionWithTitle:kAVVideoToSetting style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
         NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
         if ([[UIApplication sharedApplication] canOpenURL:url]) {
-            [[UIApplication sharedApplication] openURL:url];
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
+                
+            }];
         }
     }];
     [alert addAction:cancel];
@@ -865,10 +867,10 @@ static NSString *const kAVVideoDefaultFloder    = @"pub";
      */
     BOOL isSuccess = NO;
     if (success) {
+        //success
         isSuccess = YES;
-        NSLog(@"jkdebug 录制成功");
     }else{
-        NSLog(@"jkdebug 录制出现错误");
+        //fail
     }
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(avf_viewController:didStopRecordingWithResult:)]) {
