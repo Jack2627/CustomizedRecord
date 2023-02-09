@@ -20,6 +20,7 @@
 		5CE3E2A428D8B2C500EE5072 /* JKSafeTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE3E29D28D8B2C400EE5072 /* JKSafeTimer.m */; };
 		5CE3E2A528D8B2C500EE5072 /* JKUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE3E29E28D8B2C400EE5072 /* JKUtilities.m */; };
 		5CE3E2A928D8B30E00EE5072 /* DemoRecordingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE3E2A828D8B30E00EE5072 /* DemoRecordingView.m */; };
+		B6FC954C2994E019008BECBE /* AVFTemperatureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6FC954B2994E019008BECBE /* AVFTemperatureManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,8 @@
 		5CE3E2A128D8B2C400EE5072 /* AVFRecConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVFRecConst.h; sourceTree = "<group>"; };
 		5CE3E2A728D8B30E00EE5072 /* DemoRecordingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoRecordingView.h; sourceTree = "<group>"; };
 		5CE3E2A828D8B30E00EE5072 /* DemoRecordingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoRecordingView.m; sourceTree = "<group>"; };
+		B6FC954A2994E019008BECBE /* AVFTemperatureManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AVFTemperatureManager.h; sourceTree = "<group>"; };
+		B6FC954B2994E019008BECBE /* AVFTemperatureManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AVFTemperatureManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +111,8 @@
 				5CE3E29728D8B2C400EE5072 /* AVFRecBaseView.m */,
 				5CE3E29928D8B2C400EE5072 /* AVFViewController.h */,
 				5CE3E29828D8B2C400EE5072 /* AVFViewController.m */,
+				B6FC954A2994E019008BECBE /* AVFTemperatureManager.h */,
+				B6FC954B2994E019008BECBE /* AVFTemperatureManager.m */,
 			);
 			path = AVFoundationRecord;
 			sourceTree = "<group>";
@@ -205,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CE3E28528D8B26500EE5072 /* ViewController.m in Sources */,
+				B6FC954C2994E019008BECBE /* AVFTemperatureManager.m in Sources */,
 				5CE3E2A528D8B2C500EE5072 /* JKUtilities.m in Sources */,
 				5CE3E27F28D8B26500EE5072 /* AppDelegate.m in Sources */,
 				5CE3E2A328D8B2C500EE5072 /* AVFViewController.m in Sources */,
