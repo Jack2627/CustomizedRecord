@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)avf_recViewDismissAction;
 - (void)avf_recViewSwitchCamera;
 - (void)avf_recViewCommit;
+- (void)avf_recViewUpdateWhiteBalanceWithTemperature:(float)temperature;
 @end
 
 @interface AVFRecBaseView : UIView

@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
  仅在JKAVViewController是被push出来时生效，target , action可直接设置为nil，本类内部会重新指定target, action
  */
 @property(nonatomic, strong)UIBarButtonItem *backItem;
-@property(nonatomic, copy)AVLayerVideoGravity videoGravity;
 /**
  根据AVCaptureDevicePosition获取可用的DeviceFormat
  */
@@ -55,6 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)jk_setRecordType:(AVRecordSaveType)type;
 
+- (float)jk_getWhiteBalanceTemperature;
+
+/// 删除视频文件
 + (BOOL)jk_removeAll;
 + (BOOL)jk_removeWithFlag:(NSString *)flag;
 @end

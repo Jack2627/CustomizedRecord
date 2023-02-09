@@ -9,6 +9,7 @@
 #import "AVFRecBaseView.h"
 #import "JKUtilities.h"
 #import "JKSafeTimer.h"
+#import "AVFTemperatureManager.h"               // 记录色温
 
 static NSString *const kAVVideoTypeMOV          = @".mov";
 static NSString *const kAVVideoTypeMP4          = @".mp4";
@@ -19,8 +20,11 @@ static NSString *const kAVVideoToSetting        = @"去设置";
 static NSString *const kAVVideoNoPrivacyVideo   = @"无录像权限";
 static NSString *const kAVVideoNoPrivacyAudio   = @"无录音权限";
 static NSString *const kAVVideoDefaultFloder    = @"pub";
+static NSString *const kAVVideoFrontKey         = @"f";
+static NSString *const kAVVideoBackKey          = @"b";
 
 @interface AVFViewController ()<AVFRecViewDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate, JKSafeTimerDelegate, UIGestureRecognizerDelegate>
+@property(nonatomic, copy)AVLayerVideoGravity videoGravity;
 @property(nonatomic, strong)AVCaptureDevice *audioDevice;
 @property(nonatomic, strong)AVCaptureDevice *frontVideoDevice;
 @property(nonatomic, strong)AVCaptureDevice *backVideoDevice;
@@ -375,6 +379,10 @@ static NSString *const kAVVideoDefaultFloder    = @"pub";
     [self searchUpdateFormatWithPos:_pos needLockSession:NO];
     
     [self.session commitConfiguration];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(avf_viewControllerDidSwitchCamera:)]) {
+        [self.delegate avf_viewControllerDidSwitchCamera:self];
+    }
 }
 
 - (void)updateFormat:(AVCaptureDeviceFormat *)format captureDevice:(AVCaptureDevice *)device needLockSession:(BOOL)needLockSession{
@@ -748,6 +756,29 @@ static NSString *const kAVVideoDefaultFloder    = @"pub";
     }
 }
 
+- (AVCaptureWhiteBalanceGains)safeGainsWithTemperatureTint:(AVCaptureWhiteBalanceTemperatureAndTintValues)temperatureTint device:(AVCaptureDevice *)device{
+    AVCaptureWhiteBalanceGains result = [device deviceWhiteBalanceGainsForTemperatureAndTintValues:temperatureTint];
+    float max = device.maxWhiteBalanceGain;
+    float min = 1.0;
+    if (result.redGain > max) {
+        result.redGain = max;
+    } else if (result.redGain < min || isnan(result.redGain)) {
+        result.redGain = min;
+    }
+    if (result.greenGain > max) {
+        result.greenGain = max;
+    } else if (result.greenGain < min || isnan(result.greenGain)) {
+        result.greenGain = min;
+    }
+    if (result.blueGain > max) {
+        result.blueGain = max;
+    } else if (result.blueGain < min || isnan(result.blueGain)) {
+        result.blueGain = min;
+    }
+//    NSLog(@"r:%.2f\tg:%.2f\tb:%.2f",result.redGain,result.greenGain,result.blueGain);
+    return result;
+}
+
 #pragma mark - Public
 - (NSArray<AVCaptureDeviceFormat *> *)jk_availableSizeAndFrameRateWithPos:(AVCaptureDevicePosition)pos{
     if (pos == AVCaptureDevicePositionFront) {
@@ -811,6 +842,48 @@ static NSString *const kAVVideoDefaultFloder    = @"pub";
 
 - (void)jk_setRecordType:(AVRecordSaveType)type{
     _recordType = type;
+}
+
+- (float)jk_getWhiteBalanceTemperature{
+    float result = -1;
+    
+    AVCaptureDevice *device = nil;
+    if (_pos == AVCaptureDevicePositionBack) {
+        device = self.backVideoDevice;
+    } else if (_pos == AVCaptureDevicePositionFront) {
+        device = self.frontVideoDevice;
+    }
+    if (!device) {
+        return result;
+    }
+    
+    if (device.whiteBalanceMode != AVCaptureWhiteBalanceModeLocked) {
+        // 此时没有设置过，直接返回device的白平衡数据
+        AVCaptureWhiteBalanceGains currentGains = device.deviceWhiteBalanceGains;
+        AVCaptureWhiteBalanceTemperatureAndTintValues temperatureValue = [device temperatureAndTintValuesForDeviceWhiteBalanceGains:currentGains];
+        result = temperatureValue.temperature;
+        return result;
+    }
+    
+    NSString *key = nil;
+    if (_pos == AVCaptureDevicePositionBack) {
+        key = kAVVideoBackKey;
+    } else if (_pos == AVCaptureDevicePositionFront) {
+        key = kAVVideoFrontKey;
+    }
+    if (!key) {
+        return result;
+    }
+    
+    NSString *value = [[AVFTemperatureManager manager] avf_getWithKey:key];
+    if (value) {
+        float temp = [value floatValue];
+        if (temp > 0) {
+            result = temp;
+        }
+    }
+    
+    return result;
 }
 
 + (BOOL)jk_removeAll{
@@ -1003,6 +1076,62 @@ static NSString *const kAVVideoDefaultFloder    = @"pub";
     }
     
     [self actionDismiss];
+}
+
+- (void)avf_recViewUpdateWhiteBalanceWithTemperature:(float)temperature{
+    if (temperature <= 0.0) {
+        // 不支持
+        return;
+    }
+    AVCaptureDevice *device = nil;
+    if (_pos == AVCaptureDevicePositionBack) {
+        device = self.backVideoDevice;
+    } else if (_pos == AVCaptureDevicePositionFront) {
+        device = self.frontVideoDevice;
+    }
+    if (!device) {
+        return;
+    }
+    
+    if (![device isWhiteBalanceModeSupported:AVCaptureWhiteBalanceModeLocked]) {
+        // 不支持锁定（自定义白平衡）
+        return;
+    }
+    
+    NSError *lockError = nil;
+    BOOL success = [device lockForConfiguration:&lockError];
+    if (!success || lockError) {
+        // 锁定失败
+        return;
+    }
+    
+    if (device.whiteBalanceMode != AVCaptureWhiteBalanceModeLocked) {
+        device.whiteBalanceMode = AVCaptureWhiteBalanceModeLocked;
+    }
+    
+    AVCaptureWhiteBalanceGains currentGains = device.deviceWhiteBalanceGains;
+    AVCaptureWhiteBalanceTemperatureAndTintValues temperatureTint = {
+        .temperature = temperature,
+        .tint = 0,
+    };
+    
+    AVCaptureWhiteBalanceGains safeGains = [self safeGainsWithTemperatureTint:temperatureTint device:device];
+    [device setWhiteBalanceModeLockedWithDeviceWhiteBalanceGains:safeGains completionHandler:NULL];
+    
+    [device unlockForConfiguration];
+    
+    // 记录当前的色温
+    NSString *key = nil;
+    if (_pos == AVCaptureDevicePositionBack) {
+        key = kAVVideoBackKey;
+    } else if (_pos == AVCaptureDevicePositionFront) {
+        key = kAVVideoFrontKey;
+    }
+    if (!key) {
+        return;
+    }
+    NSString *value = [NSString stringWithFormat:@"%@",@(temperature)];
+    [[AVFTemperatureManager manager] avf_setValue:value key:key];
 }
 
 #pragma mark - 懒加载

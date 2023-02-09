@@ -50,6 +50,7 @@ typedef NS_ENUM(NSUInteger, AVRecordSaveType) {
 @class AVFViewController;
 @protocol AVFRecordingDelegate <NSObject>
 @optional
+- (void)avf_viewControllerDidSwitchCamera:(AVFViewController *)viewController;
 - (void)avf_viewControllerWillStartRecording:(AVFViewController *)viewController;
 - (void)avf_viewController:(AVFViewController *)viewController updateRecordingTime:(NSInteger)recordingTime;
 - (void)avf_viewController:(AVFViewController *)viewController willStopRecordingWithReason:(AVFRecordingStopReason)reason;
