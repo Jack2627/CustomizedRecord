@@ -15,6 +15,7 @@
     JKRecordAnimationView *_recordingBtn;
     UIButton *_switchBtn;
     UILabel *_timeLabel;
+    UISlider *_slider;      // height staic 30
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -45,6 +46,13 @@
         _timeLabel.textColor = [UIColor whiteColor];
         _timeLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_timeLabel];
+        
+        _slider = [[UISlider alloc] initWithFrame:CGRectZero];
+        [_slider addTarget:self action:@selector(actionWhiteBlanceChanged:) forControlEvents:(UIControlEventValueChanged)];
+        // 白平衡色温范围1～10000
+        _slider.minimumValue = 1.0;
+        _slider.maximumValue = 10000.0;
+        [self addSubview:_slider];
     }
     return self;
 }
@@ -64,6 +72,7 @@
     center.y = _switchBtn.center.y;
     _timeLabel.center = center;
     
+    _slider.frame = CGRectMake(20, 100, CGRectGetWidth(self.frame) - 40, 30);
 }
 
 //MARK: - Private
@@ -73,6 +82,10 @@
 
 - (void)actionSwitchCamera{
     [self.delegate avf_recViewSwitchCamera];
+}
+
+- (void)actionWhiteBlanceChanged:(UISlider *)sender{
+    [self.delegate avf_recViewUpdateWhiteBalanceWithTemperature:sender.value];
 }
 
 #pragma mark - Public
@@ -96,6 +109,10 @@
 
 - (void)rec_hideDismissBtn{
     _dismissBtn.hidden = YES;
+}
+
+- (void)rec_setTemperature:(float)temperature{
+    [_slider setValue:temperature animated:NO];
 }
 
 #pragma mark - JKRecordAnimationViewDelegate

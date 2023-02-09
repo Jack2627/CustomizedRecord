@@ -162,6 +162,17 @@ typedef NS_ENUM(NSUInteger, ShowRecordMethod) {
     [self.recView rec_updateRecordingTime:_recordingTime];
 }
 
+- (void)updateWhiteBalance:(AVFViewController *)viewController{
+    float temperature = [viewController jk_getWhiteBalanceTemperature];
+    if (temperature > 0) {
+        NSLog(@"当前色温:%f",temperature);
+        [self.recView rec_setTemperature:temperature];
+    } else {
+        // 获取色温失败
+        NSLog(@"获取色温失败");
+    }
+}
+
 //MARK: - AVFRecordingDataSource
 - (AVFRecBaseView *)avfoundationView{
     NSLog(@"jkdebug avview:%@",self.recView);
@@ -169,6 +180,10 @@ typedef NS_ENUM(NSUInteger, ShowRecordMethod) {
 }
 
 //MARK: - AVFRecordingDelegate
+- (void)avf_viewControllerDidSwitchCamera:(AVFViewController *)viewController{
+    [self updateWhiteBalance:viewController];
+}
+
 - (void)avf_viewController:(AVFViewController *)viewController commit:(NSDictionary *)dict{
     NSLog(@"%@ %@",NSStringFromSelector(_cmd),dict);
 }
@@ -240,6 +255,8 @@ typedef NS_ENUM(NSUInteger, ShowRecordMethod) {
         viewController.navigationController.navigationBar.barTintColor = [UIColor clearColor];
         viewController.navigationController.navigationBar.translucent = NO;
     }
+    
+    [self updateWhiteBalance:viewController];
 }
 
 - (void)avf_viewControllerWillDisappear:(AVFViewController *)viewController{
